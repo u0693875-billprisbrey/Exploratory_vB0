@@ -6,6 +6,11 @@
 dotsPlot <- function(){plot(sample(1:100, 20),
                  sample(1:100, 20),
                  col = viridis::viridis(20),
-                 cex = sample(1:20)
+                 cex = sample(1:20),
+                 xlab = "",
+                 ylab = "",
+                 xaxt = "n",
+                 yaxt = "n"
                  )
 }
+
