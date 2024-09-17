@@ -61,3 +61,7 @@ dotsPlot2 <- function(){
 
 # Now I've decided to fill up the dots according to a calendar of the days
 
+# I want to put the date across the top
+# And I want to make the dots smaller --- they are too big
+
+
