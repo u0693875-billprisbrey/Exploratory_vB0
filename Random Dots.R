@@ -64,4 +64,49 @@ dotsPlot2 <- function(){
 # I want to put the date across the top
 # And I want to make the dots smaller --- they are too big
 
+# I want to experiment with creating and pushing to a branch
+
+
+dotsPlot3 <- function(){
+  
+  incomingPar <- par()
+  
+  # Exclude read-only parameters
+  incomingPar <- incomingPar[!names(incomingPar) %in% c("cin", "cra", "csi", "cxy", "din", "page")]
+  
+  # fill circles according to day of the month (a kind of count-down calendar)
+  
+  max_days <- Sys.Date() |> 
+    (\(x) as.Date(cut(x, "month")))() |> 
+    (\(x) as.Date(cut(x + 31, "month")) - 1)() |> 
+    (\(x) as.numeric(format(x, "%d")))()
+  
+  current_day <- as.numeric(format(Sys.Date(), "%d"))
+  
+  shapeFill <- rep(1,max_days)
+  shapeFill[1:current_day] <- 19
+  
+  # Adjust size of circles
+  shapeSize <- sample(1:10, max_days, replace = TRUE)
+  
+  par(mar = c(0,0,0,0))
+  plot(sample(1:100, max_days),
+       sample(1:100, max_days),
+       col = viridis::viridis(max_days),
+       cex = shapeSize,
+       pch = shapeFill,
+       bty = "n",
+       xlab = "",
+       ylab = "",
+       xaxt = "n",
+       yaxt = "n"
+  )
+  
+  # Publish date across the top
+  
+  text(x=50, y = 90, Sys.Date(), font = 4, col = "gray15", cex = 1.2)
+  
+  par(incomingPar)
+  
+}
 
