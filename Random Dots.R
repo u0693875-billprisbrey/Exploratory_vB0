@@ -64,7 +64,61 @@ dotsPlot2 <- function(){
 # I want to put the date across the top
 # And I want to make the dots smaller --- they are too big
 
-# Adding this to the main
+# I want to experiment with creating and pushing to a branch
 
-# Making an adjustment to save again
 
+# In the branch commit, this is "dotsPlot3"
+# I am re-naming it here to try and keep track of my commits
+# Because it would seem that I pulled an earlier commit,
+# or failed to save this to the main branch
+
+dotsPlot4 <- function(){
+  
+  incomingPar <- par()
+  
+  # Exclude read-only parameters
+  incomingPar <- incomingPar[!names(incomingPar) %in% c("cin", "cra", "csi", "cxy", "din", "page")]
+  
+  # fill circles according to day of the month (a kind of count-down calendar)
+  
+  max_days <- Sys.Date() |> 
+    (\(x) as.Date(cut(x, "month")))() |> 
+    (\(x) as.Date(cut(x + 31, "month")) - 1)() |> 
+    (\(x) as.numeric(format(x, "%d")))()
+  
+  current_day <- as.numeric(format(Sys.Date(), "%d"))
+  
+  shapeFill <- rep(1,max_days)
+  shapeFill[1:current_day] <- 19
+  
+  # Adjust size of circles
+  shapeSize <- sample(1:10, max_days, replace = TRUE)
+  
+  # establish the x-y values
+  shapeX <- sample(1:100, max_days)
+  shapeY <- sample(1:100, max_days)
+  
+  par(mar = c(0,0,0,0))
+  plot(shapeX,
+       shapeY,
+       col = viridis::viridis(max_days),
+       cex = shapeSize,
+       pch = shapeFill,
+       bty = "n",
+       xlab = "",
+       ylab = "",
+       xaxt = "n",
+       yaxt = "n"
+  )
+  
+  # Publish date across the top
+  
+  text(x=0.5*max(shapeX), y = 0.96*max(shapeY), Sys.Date(), font = 4, col = "gray15", cex = 1.2)
+  
+  par(incomingPar)
+  
+  # trouble-shooting text placement
+  # The x placement seems to move around
+  # return(list(shapeX,shapeY))
+  
+}
