@@ -89,9 +89,13 @@ dotsPlot3 <- function(){
   # Adjust size of circles
   shapeSize <- sample(1:10, max_days, replace = TRUE)
   
+  # establish the x-y values
+  shapeX <- sample(1:100, max_days)
+  shapeY <- sample(1:100, max_days)
+  
   par(mar = c(0,0,0,0))
-  plot(sample(1:100, max_days),
-       sample(1:100, max_days),
+  plot(shapeX,
+       shapeY,
        col = viridis::viridis(max_days),
        cex = shapeSize,
        pch = shapeFill,
@@ -104,9 +108,13 @@ dotsPlot3 <- function(){
   
   # Publish date across the top
   
-  text(x=50, y = 90, Sys.Date(), font = 4, col = "gray15", cex = 1.2)
+  text(x=0.5*max(shapeX), y = 0.96*max(shapeY), Sys.Date(), font = 4, col = "gray15", cex = 1.2)
   
   par(incomingPar)
+  
+  # trouble-shooting text placement
+  # The x placement seems to move around
+  # return(list(shapeX,shapeY))
   
 }
 
