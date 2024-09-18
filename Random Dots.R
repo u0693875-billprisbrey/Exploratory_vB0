@@ -69,13 +69,9 @@ dotsPlot2 <- function(){
 
 # I want to experiment with creating and pushing to a branch
 
-
-# In the branch commit, this is "dotsPlot3"
-# I am re-naming it here to try and keep track of my commits
-# Because it would seem that I pulled an earlier commit,
-# or failed to save this to the main branch
-
-dotsPlot4 <- function(){
+# This makes larger circles less likely
+# re=named to dotsPlot7
+dotsPlot7 <- function(){
   
   incomingPar <- par()
   
@@ -94,8 +90,8 @@ dotsPlot4 <- function(){
   shapeFill <- rep(1,max_days)
   shapeFill[1:current_day] <- 19
   
-  # Adjust size of circles
-  shapeSize <- sample(1:10, max_days, replace = TRUE)
+  # Adjust size of circles, with declining probabilty for large ones
+  shapeSize <- sample(1:12, max_days, prob = c(rep(0.1,7), seq(from=0.1, to = 0.01, length.out = 5) ), replace = TRUE)
   
   # establish the x-y values
   shapeX <- sample(1:100, max_days)
