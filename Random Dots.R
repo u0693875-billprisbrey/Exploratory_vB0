@@ -67,7 +67,7 @@ dotsPlot2 <- function(){
 # I want to experiment with creating and pushing to a branch
 
 
-dotsPlot3 <- function(){
+dotsPlot5 <- function(){
   
   incomingPar <- par()
   
@@ -86,8 +86,8 @@ dotsPlot3 <- function(){
   shapeFill <- rep(1,max_days)
   shapeFill[1:current_day] <- 19
   
-  # Adjust size of circles
-  shapeSize <- sample(1:10, max_days, replace = TRUE)
+  # Adjust size of circles, with declining probabilty for large ones
+  shapeSize <- sample(1:12, max_days, prob = c(rep(0.1,7), seq(from=0.1, to = 0.01, length.out = 5) ), replace = TRUE)
   
   # establish the x-y values
   shapeX <- sample(1:100, max_days)
