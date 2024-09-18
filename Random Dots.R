@@ -3,6 +3,9 @@
 
 # The purpose of this file is to practice with pulling and pushing branches.
 
+# Adding a new push on 9.18.2024 to see if it asks for my credentials again
+
+
 dotsPlot <- function(){plot(sample(1:100, 20),
                  sample(1:100, 20),
                  col = viridis::viridis(20),
