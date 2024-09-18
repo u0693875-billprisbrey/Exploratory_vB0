@@ -3,6 +3,9 @@
 
 # The purpose of this file is to practice with pulling and pushing branches.
 
+# Adding a new push on 9.18.2024 to see if it asks for my credentials again
+
+
 dotsPlot <- function(){plot(sample(1:100, 20),
                  sample(1:100, 20),
                  col = viridis::viridis(20),
@@ -66,8 +69,9 @@ dotsPlot2 <- function(){
 
 # I want to experiment with creating and pushing to a branch
 
-
-dotsPlot5 <- function(){
+# This makes larger circles less likely
+# re=named to dotsPlot7
+dotsPlot7 <- function(){
   
   incomingPar <- par()
   
@@ -117,4 +121,3 @@ dotsPlot5 <- function(){
   # return(list(shapeX,shapeY))
   
 }
-
