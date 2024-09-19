@@ -71,7 +71,10 @@ dotsPlot2 <- function(){
 
 # This makes larger circles less likely
 # re=named to dotsPlot7
-dotsPlot7 <- function(){
+
+# re-naming back to dotsPlot # I guess this has to be a commit comment
+
+dotsPlot <- function(){
   
   incomingPar <- par()
   
@@ -90,8 +93,39 @@ dotsPlot7 <- function(){
   shapeFill <- rep(1,max_days)
   shapeFill[1:current_day] <- 19
   
-  # Adjust size of circles, with declining probabilty for large ones
-  shapeSize <- sample(1:12, max_days, prob = c(rep(0.1,7), seq(from=0.1, to = 0.01, length.out = 5) ), replace = TRUE)
+  # Adjust size of circles, with options for size probability
+  
+  phi <- 1.618
+  
+  fibs <- c(1,1,2,3,5,8,13,21,34,55,89,144,233)
+  fibProb <- rev(fibs[-length(fibs)]/sum(fibs[-length(fibs)]))
+  
+  fibs_ratio <- fibs[-1] / fibs[-length(fibs)] # Ratio of consecutive Fibonacci numbers
+  fibProb_ratio <- fibs_ratio / sum(fibs_ratio) # Normalize into probabilities
+  
+  golden_powers <- sapply(0:11, function(x) phi^x)
+  goldenProb <- rev(golden_powers / sum(golden_powers))
+  
+  equalProb <- rep(0.1,12)
+  largeProb <- c(rep(0.1,7), seq(from=0.1, to = 0.01, length.out = 5) )
+  
+  # let's add a random element to the sizing of this
+  
+  # Generate random value and find interval
+  rand_value <- runif(1)
+  index <- findInterval(rand_value, vec = seq(from=0, to = 1, length.out = 6))
+  
+  # Use switch to choose the appropriate function
+  shapeSize <- switch(index,
+                      sample(1:12, max_days, prob = fibProb_ratio, replace = TRUE),
+                      sample(1:12, max_days, prob = equalProb, replace = TRUE),
+                      sample(1:12, max_days, prob = goldenProb, replace = TRUE),
+                      sample(1:12, max_days, prob = largeProb, replace = TRUE),
+                      sample(1:12, max_days, prob = fibProb, replace = TRUE)
+  )
+  
+  
+  # shapeSize <- sample(1:12, max_days, prob = fibProb_ratio, replace = TRUE)
   
   # establish the x-y values
   shapeX <- sample(1:100, max_days)
@@ -112,7 +146,7 @@ dotsPlot7 <- function(){
   
   # Publish date across the top
   
-  text(x=0.5*max(shapeX), y = 0.96*max(shapeY), Sys.Date(), font = 4, col = "gray15", cex = 1.2)
+  text(x=0.618*max(shapeX), y = 0.96*max(shapeY), Sys.Date(), font = 4, col = "gray15", cex = 1.2)
   
   par(incomingPar)
   
